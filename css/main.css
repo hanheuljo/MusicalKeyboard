@@ -1,0 +1,16 @@
+* {
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+}
+
+body {
+  margin: 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
