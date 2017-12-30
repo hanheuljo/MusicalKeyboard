@@ -71,6 +71,10 @@ function displayNote(note) {
 	}
 }
 
+// keydown handler
 $(document).keydown(function(e) {
-	addNote(e);
+	if (!(e.handled)) {
+		addNote(e);
+		e.handled = true;
+	}
 });
