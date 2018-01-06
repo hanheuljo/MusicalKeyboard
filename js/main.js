@@ -24,16 +24,12 @@ var render = Render.create({
 engine.world.bounds.max.x = worldWidth;
 engine.world.bounds.max.y = worldHeight;
 
-// create two boxes and a ground
-var boxA = Bodies.rectangle(400, 200, 80, 80);
-var boxB = Bodies.rectangle(450, 50, 80, 80);
-var boxC = Bodies.rectangle(450, 50, 80, 80);
 var ground = Bodies.rectangle(worldWidth / 2, worldHeight - 20, worldWidth - 250, 60, { isStatic: true });
 
 var notes = [];
 
 // add all of the bodies to the world
-World.add(engine.world, [boxA, boxB, ground]);
+World.add(engine.world, [ground]);
 
 // run the engine
 Engine.run(engine);
@@ -41,7 +37,11 @@ Engine.run(engine);
 // run the renderer
 Render.run(render);
 
+// create matter-js element
+// TODO: construct from SVG
 function createNote(x, y, key) {
+	var angle = Math.random() * 0.5 - 0.25;
+	var vel_y = 0.00015;
 	return Matter.Body.create({
 		position: {
 			x: x,
@@ -49,18 +49,36 @@ function createNote(x, y, key) {
 		},
 		mass: 0.0017,
 		friction: 0,
-		restitution: 1
+		restitution: 1,
+		angle: angle,
+		force: {
+			y: vel_y
+		}
 	});
 }
 
+// called in keydown handler
 function addNote(e) {
-	var note = createNote(worldWidth / 2, worldHeight - 300, e);
-	note.angle = Math.random() * 0.5 - 0.25;
-	note.force.y -= 0.00015;
+	var str = "qwertyuiop";
+	var key = e.originalEvent.key;
+	var pos = str.indexOf(key);
 
+	if (pos == -1) {
+		return;
+	}
+
+	var x_pos = 200 + pos * (worldWidth - 400) / 9;
+	var y_pos = worldHeight - 50;
+
+	var note = createNote(x_pos, y_pos, key);
 	displayNote(note);
 }
 
+function removeNote(e) {
+	console.log(e.originalEvent.key);
+}
+
+// pushes note into display queue
 function displayNote(note) {
 	notes.push(note);
 	World.add(engine.world, notes[notes.length - 1]);
@@ -75,6 +93,14 @@ function displayNote(note) {
 $(document).keydown(function(e) {
 	if (!(e.handled)) {
 		addNote(e);
+		e.handled = true;
+	}
+});
+
+// keyup handler
+$(document).keyup(function(e) {
+	if (!(e.handled)) {
+		removeNote(e);
 		e.handled = true;
 	}
 });
