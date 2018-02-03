@@ -10,7 +10,8 @@ var notes = [];
 var Engine = Matter.Engine,
 	Render = Matter.Render,
 	World = Matter.World,
-	Bodies = Matter.Bodies;
+	Bodies = Matter.Bodies,
+	Svg = Matter.Svg;
 
 // create an engine
 var engine = Engine.create();
@@ -31,6 +32,19 @@ engine.world.bounds.max.y = worldHeight;
 var ground = Bodies.rectangle(worldWidth / 2, worldHeight - 20, worldWidth - 250, 60, { isStatic: true });
 
 var bodies = [];
+
+var vertexSets = [];
+
+path = document.getElementById('eighth');
+console.log(path);
+
+vertexSets.push(Svg.pathToVertices(path, 30));
+
+World.add(world, Bodies.fromVertices(400, 80, vertexSets, {
+	render: {
+		lineWidth: 1
+	}
+}, true));
 
 // add all of the bodies to the world
 World.add(engine.world, [ground]);
