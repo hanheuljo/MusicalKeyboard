@@ -1,5 +1,5 @@
 # MusicalKeyboard
 
 TODO:
-Prevent double trigger
-- have beat count, only display on odd / even beats
+Support SVG
+- passing in wrong path to pathToSVG
