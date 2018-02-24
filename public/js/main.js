@@ -35,16 +35,29 @@ var bodies = [];
 
 var vertexSets = [];
 
+var note;
+
+$.get('./svg/eighth_note.svg').done(function(data) {
+	var vertexSets = [];
+
+	$(data).find('path').each(function(i, path) {
+		vertexSets.push(Svg.pathToVertices(path, 30));
+	});
+
+	note = Bodies.fromVertices(400, 350, vertexSets, {
+		render: {
+			fillStyle: '#2e2b44',
+			strokeStyle: '#2e2b44',
+			lineWidth: 1,
+			mass: 0.002
+		}
+	}, true);
+
+	World.add(engine.world, note);
+});
+
 path = document.getElementById('eighth');
 console.log(path);
-
-vertexSets.push(Svg.pathToVertices(path, 30));
-
-World.add(world, Bodies.fromVertices(400, 80, vertexSets, {
-	render: {
-		lineWidth: 1
-	}
-}, true));
 
 // add all of the bodies to the world
 World.add(engine.world, [ground]);

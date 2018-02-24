@@ -1,0 +1,23 @@
+{
+  "name": "musical-keyboard",
+  "version": "1.0.0",
+  "description": "TODO: Support SVG - passing in wrong path to pathToSVG",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.16.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanheuljo/MusicalKeyboard.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanheuljo/MusicalKeyboard/issues"
+  },
+  "homepage": "https://github.com/hanheuljo/MusicalKeyboard#readme"
+}
